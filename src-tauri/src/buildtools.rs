@@ -23,14 +23,24 @@ impl BuildToolsTask {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum CompilationTarget {
     None,
     CraftBukkit,
     Spigot,
 }
+impl CompilationTarget {
+    pub fn from_string(input: String) -> Self {
+        match &*input {
+            "NONE" => CompilationTarget::None,
+            "SPIGOT" => CompilationTarget::Spigot,
+            "CRAFTBUKKIT" => CompilationTarget::CraftBukkit,
+            _ => CompilationTarget::None
+        }
+    }
+}
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum BuildToolsArgument {
     Remapped,
     Rev(String),
@@ -47,6 +57,7 @@ pub enum BuildToolsArgument {
     PullRequest(String, u16),
     Compile(Vec<CompilationTarget>),
     CompileIfChanged,
+    NoGui
 }
 
 impl BuildToolsArgument {
@@ -61,11 +72,10 @@ impl BuildToolsArgument {
                     .replace(" ", "")
                     .to_uppercase()
             ),
-            BuildToolsArgument::OutputDir(output) => {
-                format!("--output-dir {}", output.to_string_lossy())
-            }
+            BuildToolsArgument::OutputDir(output) => format!("--output-dir {}", output.to_string_lossy()),
             BuildToolsArgument::PullRequest(repo, id) => format!("--pull-request {repo}:{id}"),
             BuildToolsArgument::FinalName(name) => format!("--final-name {name}"),
+            BuildToolsArgument::NoGui => format!("--nogui"),
             _ => format!("--{:?}", self).to_snake_case().replace("_", "-"),
         };
     }
