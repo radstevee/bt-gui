@@ -79,7 +79,6 @@ function App() {
       "1.9.4",
       "1.9",
       "latest",
-      "experimental"
     ]);
 
     const unlisten = listen("log-line", (event) => {
