@@ -6,5 +6,5 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 
 @Composable
-public fun MainMenu(navController: NavHostController, navBackStackEntry: NavBackStackEntry, window: ComposeWindow) {
+public fun MainMenu() {
 }

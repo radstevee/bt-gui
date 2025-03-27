@@ -33,7 +33,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.radstevee.bt.BARS_BACKGROUND
 import net.radstevee.bt.bottomBorder
-import net.radstevee.bt.screen.BuilderScreen
+import net.radstevee.bt.screen.BuildToolsRoute
 import net.radstevee.bt.state
 import net.radstevee.bt.state.instance.Instance
 import net.radstevee.bt.view.model.InstancesViewModel
@@ -44,7 +44,7 @@ import kotlin.system.exitProcess
 @OptIn(ExperimentalFoundationApi::class, DelicateCoroutinesApi::class)
 @Composable
 public fun TopBar(
-  screen: BuilderScreen,
+  route: BuildToolsRoute,
   window: ComposeWindow,
   instancesViewModel: InstancesViewModel = viewModel { InstancesViewModel() },
 ) {
@@ -74,7 +74,7 @@ public fun TopBar(
         )
 
         Text(
-          screen.displayName,
+          route.displayName,
           modifier = Modifier
             .padding(start = 10.dp)
         )
@@ -127,6 +127,7 @@ public fun TopBar(
             .height(40.dp)
             .clip(RoundedCornerShape(5.dp))
             .border(2.dp, Color(0xFF4A4A4A))
+            .clickable { println("me when I open the box") }
         ) {
           Row(
             modifier = Modifier
